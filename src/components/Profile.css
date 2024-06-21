@@ -1,0 +1,222 @@
+/* Global reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.profile-container {
+  padding: 20px;
+  background-color: #111;
+  color: white;
+  min-height: 100vh;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.ad-space {
+  height: 60px;
+  width: 100%;
+  background-color: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.back-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+}
+
+.back-button a {
+  text-decoration: none;
+  color: white;
+}
+
+.back-button i {
+  font-size: 24px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 20px;
+  position: relative;
+}
+
+.profile-pic {
+  position: relative;
+}
+
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.camera-icon {
+  position: absolute;
+  bottom: 8px;
+  right: -10px;
+  background-color: #fff;
+  border: 2px solid #000;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.camera-icon svg {
+  color: #000;
+}
+
+.camera-icon:hover {
+  background-color: #ddd;
+}
+
+.camera-icon:hover svg {
+  color: #555;
+}
+
+.camera-icon label {
+  cursor: pointer;
+}
+
+.update-avatar-form {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.update-avatar-form button {
+  display: flex;
+  justify-content: center;
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.update-avatar-form button:hover {
+  background-color: #218838;
+}
+
+.profile-name {
+  margin-top: 10px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.upload-video-form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.upload-video-btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.upload-video-btn:hover {
+  background-color: #0056b3;
+}
+
+.upload-video-form input[type="text"] {
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.upload-video-form button[type="submit"] {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.upload-video-form button[type="submit"]:hover {
+  background-color: #218838;
+}
+
+.video-preview {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.profile-videos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.profile-video-wrapper {
+  width: 48%;
+  margin-bottom: 20px;
+}
+
+.profile-video {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+}
+
+.video-title {
+  text-align: center;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+@media (min-width: 535px) {
+  .back-button a {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+#logout-btn{
+  padding: 7px 14px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease; 
+  margin-left: 80%;
+  margin-top: 5px;
+}

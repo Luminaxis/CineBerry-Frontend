@@ -1,0 +1,62 @@
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 500px; /* Fixed width for tablets and laptops */
+  margin-top: 5px;
+  position: relative;
+}
+
+.button-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+  z-index: -1;
+}
+
+.icon-button {
+  position: relative;
+  background-color: black; /* Black background */
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  font-size: 24px; /* Increased font size */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease-in-out;
+  color: white; /* White text color */
+}
+
+.icon-button:hover {
+  background-color: #333; /* Darken background on hover */
+}
+
+.home-button {
+  border-color: #ff5722; /* Orange border for home button */
+  margin-left: 100%;
+}
+
+.home-button:hover {
+  background-color: #ff5722;
+  color: white;
+}
+
+.profile-button {
+  border-color: #2196f3; /* Blue border for profile button */
+  margin-left: -100%;
+}
+
+.profile-button:hover {
+  background-color: #2196f3;
+  color: white;
+}
+
+.button-link {
+  text-decoration: none;
+}
