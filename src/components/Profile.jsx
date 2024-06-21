@@ -23,7 +23,7 @@ const Profile = () => {
           throw new Error('No token found');
         }
 
-        const profileResponse = await fetch('http://localhost:5000/api/users/profile', {
+        const profileResponse = await fetch('https://cine-berry-api.vercel.app/api/users/profile', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -36,7 +36,7 @@ const Profile = () => {
         const profileData = await profileResponse.json();
         setUser(profileData);
 
-        const videosResponse = await fetch(`http://localhost:5000/api/videos/user/${profileData._id}`);
+        const videosResponse = await fetch(`https://cine-berry-api.vercel.app/api/videos/user/${profileData._id}`);
         if (!videosResponse.ok) {
           throw new Error('Failed to fetch videos');
         }
@@ -85,7 +85,7 @@ const Profile = () => {
       formData.append('video', selectedFile);
       formData.append('title', videoTitle);
 
-      const response = await fetch('http://localhost:5000/api/videos', {
+      const response = await fetch('https://cine-berry-api.vercel.app/api/videos', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -120,7 +120,7 @@ const Profile = () => {
       const formData = new FormData();
       formData.append('avatar', avatarFile);
 
-      const response = await fetch('http://localhost:5000/api/users/profile', {
+      const response = await fetch('https://cine-berry-api.vercel.app/api/users/profile', {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -149,7 +149,7 @@ const Profile = () => {
         throw new Error('No token found');
       }
 
-      const response = await fetch('http://localhost:5000/api/users/logout', {
+      const response = await fetch('https://cine-berry-api.vercel.app/api/users/logout', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -190,7 +190,7 @@ const Profile = () => {
       </div>
       <div className="profile-header">
         <div className="profile-pic">
-          <img src={avatarPreview || `http://localhost:5000${user.avatar}`} alt="Profile" className="profile-avatar" />
+          <img src={avatarPreview || `https://cine-berry-api.vercel.app${user.avatar}`} alt="Profile" className="profile-avatar" />
           <label htmlFor="avatar-upload" className="camera-icon">
             <FaCamera />
           </label>
@@ -230,7 +230,7 @@ const Profile = () => {
         {videos.map((video) => (
           <div key={video._id} className="profile-video-wrapper">
             <video className="profile-video" controls>
-              <source src={`http://localhost:5000${video.videoPath}`} type="video/mp4" />
+              <source src={`https://cine-berry-api.vercel.app${video.videoPath}`} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
             <p className="video-title">{video.title}</p>
