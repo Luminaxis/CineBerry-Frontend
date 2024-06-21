@@ -101,7 +101,7 @@ const VideoPlayer = () => {
               muted
               onClick={() => handleVideoClick(index)}
             >
-              <source src={`https://cine-berry-api.vercel.app${video.videoPath}`} type="video/mp4" />
+              <source src={`https://cine-berry-api.vercel.app/${video.videoPath}`} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
             <div className="video-overlay">
