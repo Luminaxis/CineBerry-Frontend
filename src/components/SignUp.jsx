@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './SignUp.css';
 import { Link } from 'react-router-dom';
 
 const SignUp = () => {
+
+  axios.defaults.withCredentials = true;
+
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -17,26 +21,25 @@ const SignUp = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    fetch('https://cine-berry-api.vercel.app/api/users/register', { // Adjusted the URL to remove localhost
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    })
-    .then(response => {
-      if (!response.ok) {
+    try {
+      const response = await axios.post('https://cine-berry-api.vercel.app/api/users/register', formData, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (response.status === 201) {
+        // Redirect to login page after successful signup
+        window.location.href = '/login'; // Redirect using window.location.href
+      } else {
         throw new Error('Failed to sign up');
       }
-      // Redirect to login page after successful signup
-      window.location.href = '/login'; // Redirect using window.location.href
-    })
-    .catch(error => {
+    } catch (error) {
       console.error('Error signing up:', error);
       // Handle error (e.g., display error message)
-    });
+    }
   };
 
   return (

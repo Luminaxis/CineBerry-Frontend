@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaCamera, FaArrowLeft } from 'react-icons/fa';
 import './Profile.css';
 
 const Profile = () => {
+
+  axios.defaults.withCredentials = true;
+
   const [user, setUser] = useState(null);
   const [videos, setVideos] = useState([]);
   const [error, setError] = useState(null);
@@ -23,25 +27,16 @@ const Profile = () => {
           throw new Error('No token found');
         }
 
-        const profileResponse = await fetch('https://cine-berry-api.vercel.app/api/users/profile', {
-          method: 'GET',
+        const profileResponse = await axios.get('https://cine-berry-api.vercel.app/api/users/profile', {
           headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
+            'Authorization': `Bearer ${token}`
           }
         });
-        if (!profileResponse.ok) {
-          throw new Error('Failed to fetch profile');
-        }
-        const profileData = await profileResponse.json();
-        setUser(profileData);
 
-        const videosResponse = await fetch(`https://cine-berry-api.vercel.app/api/videos/user/${profileData._id}`);
-        if (!videosResponse.ok) {
-          throw new Error('Failed to fetch videos');
-        }
-        const videosData = await videosResponse.json();
-        setVideos(videosData);
+        setUser(profileResponse.data);
+
+        const videosResponse = await axios.get(`https://cine-berry-api.vercel.app/api/videos/user/${profileResponse.data._id}`);
+        setVideos(videosResponse.data);
       } catch (error) {
         console.error('Error fetching profile:', error.message);
         setError(error.message);
@@ -85,20 +80,13 @@ const Profile = () => {
       formData.append('video', selectedFile);
       formData.append('title', videoTitle);
 
-      const response = await fetch('https://cine-berry-api.vercel.app/api/videos', {
-        method: 'POST',
+      const response = await axios.post('https://cine-berry-api.vercel.app/api/videos', formData, {
         headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-        body: formData
+          'Authorization': `Bearer ${token}`
+        }
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to upload video');
-      }
-
-      const newVideo = await response.json();
-      setVideos([...videos, newVideo]);
+      setVideos([...videos, response.data]);
       setSelectedFile(null);
       setVideoTitle('');
       setVideoPreview(null);
@@ -120,20 +108,13 @@ const Profile = () => {
       const formData = new FormData();
       formData.append('avatar', avatarFile);
 
-      const response = await fetch('https://cine-berry-api.vercel.app/api/users/profile', {
-        method: 'PUT',
+      const response = await axios.put('https://cine-berry-api.vercel.app/api/users/profile', formData, {
         headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-        body: formData
+          'Authorization': `Bearer ${token}`
+        }
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to update avatar');
-      }
-
-      const updatedUser = await response.json();
-      setUser(updatedUser);
+      setUser(response.data);
       setAvatarFile(null);
       setAvatarPreview(null);
     } catch (error) {
@@ -149,16 +130,11 @@ const Profile = () => {
         throw new Error('No token found');
       }
 
-      const response = await fetch('https://cine-berry-api.vercel.app/api/users/logout', {
-        method: 'GET',
+      await axios.get('https://cine-berry-api.vercel.app/api/users/logout', {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`
         }
       });
-
-      if (!response.ok) {
-        throw new Error('Failed to logout');
-      }
 
       localStorage.removeItem('token');
       navigate('/login');

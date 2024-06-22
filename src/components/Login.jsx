@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import './Login.css';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios'; // Import Axios
 
 const Login = () => {
+
+  axios.defaults.withCredentials = true;
+
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -21,26 +25,24 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://cine-berry-api.vercel.app/api/users/login', {
-        method: 'POST',
+      const response = await axios.post('https://cine-berry-api.vercel.app/api/users/login', formData, {
         headers: {
           'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
+        }
       });
 
-      if (!response.ok) {
+      // Handle login failure
+      if (!response.data.token) {
         throw new Error('Failed to login');
       }
 
-      const data = await response.json();
       // Store the token in local storage
-      localStorage.setItem('token', data.token);
+      localStorage.setItem('token', response.data.token);
       // Redirect to profile page after successful login
       navigate('/profile');
     } catch (error) {
       console.error('Error logging in:', error.message);
-      setError(error.message); // Handle error (e.g., display error message)
+      setError('Failed to login'); // Handle error (e.g., display error message)
     }
   };
 

@@ -1,8 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
+import axios from 'axios';
 import './VideoPlayer.css';
 import Button from './Buttons';
 
 const VideoPlayer = () => {
+
+  axios.defaults.withCredentials = true;
+
   const [videos, setVideos] = useState([]);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const videoWrapperRef = useRef(null);
@@ -10,9 +14,8 @@ const VideoPlayer = () => {
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const response = await fetch('https://cine-berry-api.vercel.app/api/videos');
-        const data = await response.json();
-        setVideos(data);
+        const response = await axios.get('https://cine-berry-api.vercel.app/api/videos');
+        setVideos(response.data);
       } catch (error) {
         console.error('Error fetching videos:', error);
       }
@@ -63,25 +66,15 @@ const VideoPlayer = () => {
 
   const handleLogin = async (email, password) => {
     try {
-      const response = await fetch('https://cine-berry-api.vercel.app/api/users/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
+      const response = await axios.post('https://cine-berry-api.vercel.app/api/users/login', {
+        email,
+        password,
       });
 
-      if (!response.ok) {
-        throw new Error('Login failed');
-      }
-
-      const data = await response.json();
-      localStorage.setItem('authToken', data.token); // Store token in localStorage
-      // Handle successful login and redirect or update UI
+      localStorage.setItem('authToken', response.data.token); // Store token in localStorage
       console.log('Login successful');
     } catch (error) {
       console.error('Login error:', error.message);
-      // Handle login error state, display error message to the user, etc.
     }
   };
 
