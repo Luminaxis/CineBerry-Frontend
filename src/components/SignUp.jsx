@@ -19,7 +19,7 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch('http://localhost:5000/api/users/register', { // Adjusted the URL to remove localhost
+    fetch('https://cine-berry-api.vercel.app/api/users/register', { // Adjusted the URL to remove localhost
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

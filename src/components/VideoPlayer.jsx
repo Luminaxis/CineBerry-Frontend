@@ -10,7 +10,7 @@ const VideoPlayer = () => {
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/videos');
+        const response = await fetch('https://cine-berry-api.vercel.app/api/videos');
         const data = await response.json();
         setVideos(data);
       } catch (error) {
@@ -63,7 +63,7 @@ const VideoPlayer = () => {
 
   const handleLogin = async (email, password) => {
     try {
-      const response = await fetch('http://localhost:5000/api/users/login', {
+      const response = await fetch('https://cine-berry-api.vercel.app/api/users/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -101,12 +101,12 @@ const VideoPlayer = () => {
               muted
               onClick={() => handleVideoClick(index)}
             >
-              <source src={`http://localhost:5000${video.videoPath}`} type="video/mp4" />
+              <source src={`https://cine-berry-api.vercel.app${video.videoPath}`} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
             <div className="video-overlay">
               <div className="user-avatar">
-                <img src={`http://localhost:5000${video.user.avatar}`} alt="User Avatar" />
+                <img src={`https://cine-berry-api.vercel.app${video.user.avatar}`} alt="User Avatar" />
               </div>
               <div className="video-title">
                 <p>{video.title}</p>
