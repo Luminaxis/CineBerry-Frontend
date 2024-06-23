@@ -25,11 +25,15 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log('Attempting to login with:', formData); // Log form data for debugging
       const response = await axios.post('https://cine-berry-api.vercel.app/api/users/login', formData, {
         headers: {
           'Content-Type': 'application/json'
-        }
+        },
+        withCredentials: true // Ensure credentials are sent
       });
+
+      console.log('Login response:', response); // Log response for debugging
 
       // Handle login failure
       if (!response.data.token) {
@@ -41,7 +45,7 @@ const Login = () => {
       // Redirect to profile page after successful login
       navigate('/profile');
     } catch (error) {
-      console.error('Error logging in:', error.message);
+      console.error('Error logging in:', error.response ? error.response.data : error.message);
       setError('Failed to login'); // Handle error (e.g., display error message)
     }
   };
