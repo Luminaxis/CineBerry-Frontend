@@ -80,9 +80,6 @@ const VideoPlayer = () => {
 
   return (
     <div className="video-container">
-      <div className="ad-space">
-        <p>Ad Space</p>
-      </div>
       <div className="video-wrapper" ref={videoWrapperRef}>
         {videos.map((video, index) => (
           <div key={video._id} className="video-content">
