@@ -70,29 +70,31 @@ const Profile = () => {
   const handleUploadVideo = async (e) => {
     e.preventDefault();
     setUploadError(null);
+    
     try {
       const token = localStorage.getItem('token');
       if (!token) {
         throw new Error('No token found');
       }
-
+  
       const formData = new FormData();
       formData.append('video', selectedFile);
       formData.append('title', videoTitle);
-
+  
       const response = await axios.post('https://cine-berry-api.vercel.app/api/videos', formData, {
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data', // Ensure proper content type
+        },
       });
-
+  
       setVideos([...videos, response.data]);
       setSelectedFile(null);
       setVideoTitle('');
       setVideoPreview(null);
     } catch (error) {
       console.error('Error uploading video:', error.message);
-      setUploadError(error.message);
+      setUploadError('Failed to upload video. Please try again.'); // Update error state for user feedback
     }
   };
 
